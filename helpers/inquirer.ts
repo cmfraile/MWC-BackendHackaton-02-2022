@@ -1,5 +1,6 @@
 import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
+const jsonurl = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
 const preguntas = [
     {
@@ -13,6 +14,8 @@ const preguntas = [
         ]
     }
 ];
+
+
 
 export const menuinquirer = async() => {
     console.clear();
@@ -33,6 +36,10 @@ export const opciones = {
         console.log("Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow);
         console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
+    },
+    developers: () => {
+        console.clear();
+        console.log("llegamos");
     }
 }
 

@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const { menuinquirer, pausa, opciones } = require('./helpers/inquirer');
 console.clear();
 //EMPIEZA EL CODIGO:
-let original = require('../database/original.json');
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     let opt = '';
     do {
@@ -20,7 +19,9 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             case '1':
                 opciones.diasdelevento();
                 break;
-            //case '2': console.log(opt) ; break ;
+            case '2':
+                opciones.developers();
+                break;
             //case '3': console.log(opt) ; break ;
             //case '4': console.log(opt) ; break ;
             default:

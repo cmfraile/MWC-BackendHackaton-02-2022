@@ -16,6 +16,8 @@ exports.opciones = exports.pausa = exports.menuinquirer = void 0;
 const inquirer_1 = __importDefault(require("inquirer"));
 const Colors = require("colors.ts");
 Colors.enable();
+const node_fetch_1 = __importDefault(require("node-fetch"));
+(0, node_fetch_1.default)('https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json').then(resp => resp.json()).then(console.log);
 const preguntas = [
     {
         type: 'list',
@@ -29,6 +31,7 @@ const preguntas = [
     }
 ];
 const menuinquirer = () => __awaiter(void 0, void 0, void 0, function* () {
+    (0, node_fetch_1.default)('https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json').then(resp => resp.json()).then(data => console.log(data));
     console.clear();
     //console.log("MWCBCN - 02/2022 - Desafio BackEnd\n".yellow);
     const { opcion } = yield inquirer_1.default.prompt(preguntas);
@@ -50,6 +53,10 @@ exports.opciones = {
         console.log("Desde el 26-02 hasta el 03-03");
         console.log("\n");
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
+    },
+    developers: () => {
+        console.clear();
+        console.log("llegamos");
     }
 };
 //# sourceMappingURL=inquirer.js.map
