@@ -1,8 +1,11 @@
 const { menuinquirer , pausa , opciones } = require('./helpers/inquirer');
+const bdoriginal = require('../database/original.json');
 
 console.clear();
 
 //EMPIEZA EL CODIGO:
+
+//VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 
 const main = async() => {
     
@@ -21,7 +24,7 @@ const main = async() => {
 
 }
 
- main();
+//main();
 
 //ACABA EL CÓDIGO:
 console.log("\n");

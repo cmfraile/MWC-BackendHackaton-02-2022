@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const { menuinquirer, pausa, opciones } = require('./helpers/inquirer');
+const bdoriginal = require('../database/original.json');
 console.clear();
 //EMPIEZA EL CODIGO:
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -31,7 +32,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         yield pausa();
     } while (opt !== '0');
 });
-main();
+//main();
+console.log(bdoriginal);
 //ACABA EL CÓDIGO:
 console.log("\n");
 //# sourceMappingURL=app.js.map
