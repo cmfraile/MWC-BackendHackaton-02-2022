@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
-import { writeFile , unlinkSync, rmSync } from 'fs';
+import { writeFile , writeFileSync } from 'fs';
 import { bdurl , bdconsulta } from './bdeployer';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
@@ -13,7 +13,8 @@ const preguntas = [
             {value: '1' , name:`Información del evento`},
             {value: '2' , name:`Listar visitantes`},
             {value: '3' , name:`Añadir visitantes`},
-            {value: '4' , name:`Reiniciar base de datos`},
+            {value: '4' , name:`borrar visitante`},
+            {value: '5' , name:`Reiniciar base de datos`},
             {value: '0' , name:`Cerrar CLI`}
         ]
     }
@@ -88,10 +89,12 @@ export const opciones = {
     },
     reiniciarBD: async(directorio:string):Promise<void> => {
         try{
-            unlinkSync(`${directorio}/database/devs.json`);
-            const data:any = await bdconsulta(bdurl);
-            writeFile(`${directorio}/database/devs.json`,JSON.stringify(data),(err) =>{if(err) throw err});
+            const data:any[] = await bdconsulta();
+            writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(data));
         }catch(err){console.log(err)}
+    },
+    borrarVisitante: async():Promise<void> => {
+        console.log("llegas");
     }
 }
 

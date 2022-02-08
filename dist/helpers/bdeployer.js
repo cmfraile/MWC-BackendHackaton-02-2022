@@ -20,9 +20,9 @@ const axios_1 = __importDefault(require("axios"));
 //home/nakowhitedeity/EyT/Desarrollo web/Hackatones/MWCfebrero22/desafiobackend/dist.
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 exports.bdurl = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
-const bdconsulta = (bdurl) => __awaiter(void 0, void 0, void 0, function* () {
+const bdconsulta = () => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((rs, rj) => {
-        axios_1.default.get(bdurl).then(resp => {
+        axios_1.default.get(exports.bdurl).then(resp => {
             let arraydev = resp.data;
             arraydev = arraydev.sort((a, b) => { if (a.name < b.name) {
                 return -1;
@@ -39,22 +39,17 @@ const bdeployer = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () {
     const urlref = path_1.default.join(rutaroot, './database');
     try {
         if (!fs_1.default.existsSync(urlref)) {
-            fs_1.default.mkdir(urlref, (err) => __awaiter(void 0, void 0, void 0, function* () {
-                if (err == null) {
-                    const data = yield (0, exports.bdconsulta)(exports.bdurl);
-                    fs_1.default.writeFile(`${urlref}/devs.json`, JSON.stringify(data), (err) => { if (err)
-                        throw err; });
-                }
-                else {
-                    throw err;
-                }
-                ;
-            }));
+            fs_1.default.mkdirSync(urlref);
         }
         ;
+        if (!fs_1.default.existsSync(`${urlref}/devs.json`)) {
+            const data = yield (0, exports.bdconsulta)();
+            fs_1.default.writeFileSync(`${urlref}/devs.json`, JSON.stringify(data));
+        }
+        return;
     }
     catch (err) {
-        console.log(err);
+        throw err;
     }
 });
 exports.bdeployer = bdeployer;

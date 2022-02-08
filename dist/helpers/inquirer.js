@@ -28,7 +28,8 @@ const preguntas = [
             { value: '1', name: `Información del evento` },
             { value: '2', name: `Listar visitantes` },
             { value: '3', name: `Añadir visitantes` },
-            { value: '4', name: `Reiniciar base de datos` },
+            { value: '4', name: `borrar visitante` },
+            { value: '5', name: `Reiniciar base de datos` },
             { value: '0', name: `Cerrar CLI` }
         ]
     }
@@ -115,14 +116,15 @@ exports.opciones = {
     }),
     reiniciarBD: (directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            (0, fs_1.unlinkSync)(`${directorio}/database/devs.json`);
-            const data = yield (0, bdeployer_1.bdconsulta)(bdeployer_1.bdurl);
-            (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(data), (err) => { if (err)
-                throw err; });
+            const data = yield (0, bdeployer_1.bdconsulta)();
+            (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(data));
         }
         catch (err) {
             console.log(err);
         }
+    }),
+    borrarVisitante: () => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("llegas");
     })
 };
 //# sourceMappingURL=inquirer.js.map
