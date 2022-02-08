@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const { menuinquirer, pausa, opciones } = require('./helpers/inquirer');
-const bdoriginal = require('../database/original.json');
+const { menuinquirer, pausa, opciones, jsonurl } = require('./helpers/inquirer');
 console.clear();
 //EMPIEZA EL CODIGO:
+//VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     let opt = '';
     do {
@@ -31,9 +31,9 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         yield pausa();
     } while (opt !== '0');
+    console.clear();
 });
-//main();
-console.log(bdoriginal);
+main();
 //ACABA EL CÓDIGO:
 console.log("\n");
 //# sourceMappingURL=app.js.map

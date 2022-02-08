@@ -16,7 +16,15 @@ exports.opciones = exports.pausa = exports.menuinquirer = void 0;
 const inquirer_1 = __importDefault(require("inquirer"));
 const Colors = require("colors.ts");
 Colors.enable();
-const jsonurl = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
+const table_1 = require("table");
+//const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
+const jsondc = require('../../database/original.json');
+let jsoncp = jsondc.sort((a, b) => { if (a.name < b.name) {
+    return -1;
+}
+else {
+    return 1;
+} ; });
 const preguntas = [
     {
         type: 'list',
@@ -53,8 +61,22 @@ exports.opciones = {
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
     },
     developers: () => {
+        //USUARIO : name,email,category,phone,date.
         console.clear();
-        console.log("llegamos");
+        let jsonprint = [['nombre', 'correo', 'categoria', 'telefono', 'dia de asistencia']];
+        let index = 0;
+        jsoncp.forEach((x) => {
+            index++;
+            if (index % 2 == 0) {
+                jsonprint.push([`${x.name.green}`, `${x.email.green}`, `${x.category.green}`, `${x.phone.green}`, `${x.date.green}`,]);
+            }
+            else {
+                jsonprint.push([`${x.name.blue}`, `${x.email.blue}`, `${x.category.blue}`, `${x.phone.blue}`, `${x.date.blue}`,]);
+            }
+        });
+        console.log((0, table_1.table)(jsonprint, undefined));
+    },
+    agregardev: () => {
     }
 };
 //# sourceMappingURL=inquirer.js.map
