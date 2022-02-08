@@ -1,7 +1,8 @@
 import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
-import { writeFile } from 'fs';
+import { writeFile , unlinkSync, rmSync } from 'fs';
+import { bdurl , bdconsulta } from './bdeployer';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
 const preguntas = [
@@ -60,7 +61,7 @@ export const opciones = {
         console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
     },
-    developers: (db:any) => {
+    developers: (db:any[]) => {
         //USUARIO : name,email,category,phone,date.
         console.clear();
         let jsonprint:any[][] = [['nombre','correo','categoria','telefono','dia de asistencia']];
@@ -76,15 +77,21 @@ export const opciones = {
         });
         console.log(table(jsonprint,undefined));
     },
-    agregardev: async(db:any[],directorio:string) => {
-        console.clear();
-        const respuestas = await inquirer.prompt(inputusuarioq);
-        db.push({...respuestas,editado:true});
-        db = db.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
-        writeFile(`${directorio}/database/devs.json`,JSON.stringify(db),(err) =>{if(err) throw err});
+    agregardev: async(db:any[],directorio:string):Promise<void> => {
+        try{
+            console.clear();
+            const respuestas = await inquirer.prompt(inputusuarioq);
+            db.push({...respuestas,editado:true});
+            db = db.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
+            writeFile(`${directorio}/database/devs.json`,JSON.stringify(db),(err) =>{if(err) throw err});
+        }catch(err){console.log(err)}
     },
-    reiniciarBD: async() => {
-        console.log("llegas aqui");
+    reiniciarBD: async(directorio:string):Promise<void> => {
+        try{
+            unlinkSync(`${directorio}/database/devs.json`);
+            const data:any = await bdconsulta(bdurl);
+            writeFile(`${directorio}/database/devs.json`,JSON.stringify(data),(err) =>{if(err) throw err});
+        }catch(err){console.log(err)}
     }
 }
 

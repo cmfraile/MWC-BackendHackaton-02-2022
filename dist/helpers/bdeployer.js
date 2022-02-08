@@ -37,15 +37,13 @@ const bdconsulta = (bdurl) => __awaiter(void 0, void 0, void 0, function* () {
 exports.bdconsulta = bdconsulta;
 const bdeployer = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () {
     const urlref = path_1.default.join(rutaroot, './database');
-    return new Promise((rs, rj) => {
-        //Si no existe:
+    try {
         if (!fs_1.default.existsSync(urlref)) {
             fs_1.default.mkdir(urlref, (err) => __awaiter(void 0, void 0, void 0, function* () {
                 if (err == null) {
                     const data = yield (0, exports.bdconsulta)(exports.bdurl);
                     fs_1.default.writeFile(`${urlref}/devs.json`, JSON.stringify(data), (err) => { if (err)
                         throw err; });
-                    rs(data);
                 }
                 else {
                     throw err;
@@ -53,11 +51,11 @@ const bdeployer = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () {
                 ;
             }));
         }
-        else {
-            rs(require(`${rutaroot}/database/devs.json`));
-        }
-    });
-    //const data = await bdconsulta() ; console.log(data);
+        ;
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 exports.bdeployer = bdeployer;
 //# sourceMappingURL=bdeployer.js.map

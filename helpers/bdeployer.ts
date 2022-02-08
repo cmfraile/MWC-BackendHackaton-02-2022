@@ -6,8 +6,8 @@ import axios from 'axios';
 //home/nakowhitedeity/EyT/Desarrollo web/Hackatones/MWCfebrero22/desafiobackend/dist.
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
-const bdurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json'
-const bdconsulta = async() => {
+export const bdurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json'
+export const bdconsulta = async(bdurl:string) => {
     return new Promise((rs,rj) => {
         axios.get(bdurl).then(resp => {
             let arraydev:any[] = resp.data;
@@ -18,21 +18,16 @@ const bdconsulta = async() => {
 }
 
 
-export const bdeployer = async(rutaroot:string) => {
+export const bdeployer = async(rutaroot:string):Promise<void> => {
     const urlref:string = path.join(rutaroot,'./database');
-    return new Promise((rs,rj) => {
-    //Si no existe:
-    if(!fs.existsSync(urlref)){
-        fs.mkdir(urlref,async(err) => {
-            if(err == null){
-                const data:any = await bdconsulta();
-                fs.writeFile(`${urlref}/devs.json`,JSON.stringify(data),(err) =>{if(err) throw err});
-                rs(data);
-            }else{throw err};
-        });
-    }else{
-        rs(require(`${rutaroot}/database/devs.json`));
-    }
-    });
-    //const data = await bdconsulta() ; console.log(data);
+    try{
+        if(!fs.existsSync(urlref)){
+            fs.mkdir(urlref,async(err) => {
+                if(err == null){
+                    const data:any = await bdconsulta(bdurl);
+                    fs.writeFile(`${urlref}/devs.json`,JSON.stringify(data),(err) =>{if(err) throw err});
+                }else{throw err};
+            });
+        };
+    }catch(err){console.log(err)}
 }

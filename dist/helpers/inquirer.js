@@ -96,26 +96,33 @@ exports.opciones = {
         console.log((0, table_1.table)(jsonprint, undefined));
     },
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
-        console.clear();
-        const respuestas = yield inquirer_1.default.prompt(inputusuarioq);
-        db.push(Object.assign(Object.assign({}, respuestas), { editado: true }));
-        db = db.sort((a, b) => { if (a.name < b.name) {
-            return -1;
+        try {
+            console.clear();
+            const respuestas = yield inquirer_1.default.prompt(inputusuarioq);
+            db.push(Object.assign(Object.assign({}, respuestas), { editado: true }));
+            db = db.sort((a, b) => { if (a.name < b.name) {
+                return -1;
+            }
+            else {
+                return 1;
+            } ; });
+            (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(db), (err) => { if (err)
+                throw err; });
         }
-        else {
-            return 1;
-        } ; });
-        (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(db), (err) => { if (err)
-            throw err; });
+        catch (err) {
+            console.log(err);
+        }
     }),
     reiniciarBD: (directorio) => __awaiter(void 0, void 0, void 0, function* () {
-        return new Promise((rs, rj) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
             (0, fs_1.unlinkSync)(`${directorio}/database/devs.json`);
             const data = yield (0, bdeployer_1.bdconsulta)(bdeployer_1.bdurl);
             (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(data), (err) => { if (err)
                 throw err; });
-            rs(require(`${directorio}/database/devs.json`));
-        }));
+        }
+        catch (err) {
+            console.log(err);
+        }
     })
 };
 //# sourceMappingURL=inquirer.js.map
