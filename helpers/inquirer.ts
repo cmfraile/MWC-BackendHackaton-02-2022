@@ -3,6 +3,7 @@ import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
 import { writeFile , writeFileSync } from 'fs';
 import { bdurl , bdconsulta } from './bdeployer';
+import { emailcheck , phonecheck } from './validadores';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
 const preguntas = [
@@ -21,15 +22,15 @@ const preguntas = [
 ];
 
 const inputusuarioq = [
-    {type:'input',name:'name'},
-    {type:'input',name:'email'},
+    {type:'input',name:'name',alias:'nombre'},
+    {type:'input',validate:emailcheck,name:'email',alias:'correo'},
     {type:'list',name:'category',choices:[
         {value:'back',nombre:'back'},
         {value:'front',nombre:'front'},
         {value:'mobile',nombre:'mobile'},
         {value:'data science',nombre:'datascience'},
-    ]},
-    {type:'input',name:'phone'},
+    ],alias:'categoria'},
+    {type:'input',validate:phonecheck,name:'phone',alias:'teléfono'},
     {type:'list',name:'date',choices:[
         {value:'26 Feb,2021',nombre:'26 Feb,2021'},
         {value:'27 Feb,2021',nombre:'27 Feb,2021'},
@@ -37,7 +38,7 @@ const inputusuarioq = [
         {value:'1 Mar,2021',nombre:'1 Mar,2021'},
         {value:'2 Mar,2021',nombre:'2 Mar,2021'},
         {value:'3 Mar,2021',nombre:'3 Mar,2021'},
-    ]},
+    ],alias:'dias de asistencia'},
 ]
 
 

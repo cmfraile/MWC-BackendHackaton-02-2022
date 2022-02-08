@@ -25,8 +25,7 @@ const menuloop = async(directorio:string) => {
             case '4': await opciones.borrarVisitante() ; break ;
             case '5': await opciones.reiniciarBD(directorio) ; break ;
         }
-        
-       await pausa();
+        if(opt !== '5'){await pausa();}
     }while(opt !== '0');
 }
 

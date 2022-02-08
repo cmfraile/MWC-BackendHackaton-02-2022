@@ -19,6 +19,7 @@ Colors.enable();
 const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
+const validadores_1 = require("./validadores");
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 const preguntas = [
     {
@@ -35,15 +36,15 @@ const preguntas = [
     }
 ];
 const inputusuarioq = [
-    { type: 'input', name: 'name' },
-    { type: 'input', name: 'email' },
+    { type: 'input', name: 'name', alias: 'nombre' },
+    { type: 'input', validate: validadores_1.emailcheck, name: 'email', alias: 'correo' },
     { type: 'list', name: 'category', choices: [
             { value: 'back', nombre: 'back' },
             { value: 'front', nombre: 'front' },
             { value: 'mobile', nombre: 'mobile' },
             { value: 'data science', nombre: 'datascience' },
-        ] },
-    { type: 'input', name: 'phone' },
+        ], alias: 'categoria' },
+    { type: 'input', validate: validadores_1.phonecheck, name: 'phone', alias: 'teléfono' },
     { type: 'list', name: 'date', choices: [
             { value: '26 Feb,2021', nombre: '26 Feb,2021' },
             { value: '27 Feb,2021', nombre: '27 Feb,2021' },
@@ -51,7 +52,7 @@ const inputusuarioq = [
             { value: '1 Mar,2021', nombre: '1 Mar,2021' },
             { value: '2 Mar,2021', nombre: '2 Mar,2021' },
             { value: '3 Mar,2021', nombre: '3 Mar,2021' },
-        ] },
+        ], alias: 'dias de asistencia' },
 ];
 const menuinquirer = () => __awaiter(void 0, void 0, void 0, function* () {
     console.clear();

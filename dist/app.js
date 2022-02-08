@@ -41,7 +41,9 @@ const menuloop = (directorio) => __awaiter(void 0, void 0, void 0, function* () 
                 yield opciones.reiniciarBD(directorio);
                 break;
         }
-        yield pausa();
+        if (opt !== '5') {
+            yield pausa();
+        }
     } while (opt !== '0');
 });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
