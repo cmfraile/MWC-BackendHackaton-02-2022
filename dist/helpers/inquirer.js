@@ -18,6 +18,7 @@ const Colors = require("colors.ts");
 Colors.enable();
 const table_1 = require("table");
 const fs_1 = require("fs");
+const bdeployer_1 = require("./bdeployer");
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 const preguntas = [
     {
@@ -107,8 +108,14 @@ exports.opciones = {
         (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(db), (err) => { if (err)
             throw err; });
     }),
-    reiniciarBD: () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("llegas aqui");
+    reiniciarBD: (directorio) => __awaiter(void 0, void 0, void 0, function* () {
+        return new Promise((rs, rj) => __awaiter(void 0, void 0, void 0, function* () {
+            (0, fs_1.unlinkSync)(`${directorio}/database/devs.json`);
+            const data = yield (0, bdeployer_1.bdconsulta)(bdeployer_1.bdurl);
+            (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(data), (err) => { if (err)
+                throw err; });
+            rs(require(`${directorio}/database/devs.json`));
+        }));
     })
 };
 //# sourceMappingURL=inquirer.js.map

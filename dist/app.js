@@ -15,20 +15,21 @@ console.clear();
 //VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 const menuloop = (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
     let opt = '';
+    let db1 = db;
     do {
         opt = yield menuinquirer();
         switch (opt) {
             case '1':
-                opciones.diasdelevento(db);
+                opciones.diasdelevento(db1);
                 break;
             case '2':
-                opciones.developers(db);
+                opciones.developers(db1);
                 break;
             case '3':
-                yield opciones.agregardev(db, directorio);
+                yield opciones.agregardev(db1, directorio);
                 break;
             case '4':
-                yield opciones.reiniciarBD();
+                db1 = yield opciones.reiniciarBD(directorio).then;
                 break;
         }
         yield pausa();
