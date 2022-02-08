@@ -36,23 +36,23 @@ const preguntas = [
     }
 ];
 const inputusuarioq = [
-    { type: 'input', name: 'name', alias: 'nombre' },
-    { type: 'input', validate: validadores_1.emailcheck, name: 'email', alias: 'correo' },
-    { type: 'list', name: 'category', choices: [
+    { type: 'input', name: 'nombre' },
+    { type: 'input', validate: validadores_1.emailcheck, name: 'correo' },
+    { type: 'list', name: 'categoria', choices: [
             { value: 'back', nombre: 'back' },
             { value: 'front', nombre: 'front' },
             { value: 'mobile', nombre: 'mobile' },
             { value: 'data science', nombre: 'datascience' },
         ], alias: 'categoria' },
-    { type: 'input', validate: validadores_1.phonecheck, name: 'phone', alias: 'teléfono' },
-    { type: 'list', name: 'date', choices: [
+    { type: 'input', validate: validadores_1.phonecheck, name: 'telefono' },
+    { type: 'list', name: 'fecha', choices: [
             { value: '26 Feb,2021', nombre: '26 Feb,2021' },
             { value: '27 Feb,2021', nombre: '27 Feb,2021' },
             { value: '28 Feb,2021', nombre: '28 Feb,2021' },
             { value: '1 Mar,2021', nombre: '1 Mar,2021' },
             { value: '2 Mar,2021', nombre: '2 Mar,2021' },
             { value: '3 Mar,2021', nombre: '3 Mar,2021' },
-        ], alias: 'dias de asistencia' },
+        ] },
 ];
 const menuinquirer = () => __awaiter(void 0, void 0, void 0, function* () {
     console.clear();
@@ -100,7 +100,8 @@ exports.opciones = {
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             console.clear();
-            const respuestas = yield inquirer_1.default.prompt(inputusuarioq);
+            const { nombre: name, correo: email, categoria: category, telefono: phone, asistencia: date } = yield inquirer_1.default.prompt(inputusuarioq);
+            const respuestas = { name, email, category, phone, date };
             db.push(Object.assign(Object.assign({}, respuestas), { editado: true }));
             db = db.sort((a, b) => { if (a.name < b.name) {
                 return -1;
