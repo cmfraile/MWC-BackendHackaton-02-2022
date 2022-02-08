@@ -1,5 +1,5 @@
-const { menuinquirer , pausa , opciones } = require('./helpers/inquirer');
-const bdoriginal = require('../database/original.json');
+const { menuinquirer , pausa , opciones , jsonurl } = require('./helpers/inquirer');
+const { bdeployer } = require('./helpers/bdeployer');
 
 console.clear();
 
@@ -7,24 +7,28 @@ console.clear();
 
 //VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 
-const main = async() => {
-    
+const menuloop = async(db:any[],directorio:string) => {
     let opt = '';
     do{
         opt = await menuinquirer();
         switch(opt){
-            case '1': opciones.diasdelevento() ; break ;
-            case '2': opciones.developers() ; break ;
-            //case '3': console.log(opt) ; break ;
-            //case '4': console.log(opt) ; break ;
-           default: console.log(opt) ; break ;
+            case '1': opciones.diasdelevento(db) ; break ;
+            case '2': opciones.developers(db) ; break ;
+            case '3': await opciones.agregardev(db,directorio) ; break ;
+            case '4': await opciones.reiniciarBD() ; break ;
         }
         await pausa();
     }while(opt !== '0');
-
 }
 
-//main();
+const main = async() => {
+    console.clear();
+    const takedb:any[] = await bdeployer(__dirname);
+    await menuloop(takedb,__dirname);
+    //console.clear();
+}
+
+main();
 
 //ACABA EL CÓDIGO:
 console.log("\n");
