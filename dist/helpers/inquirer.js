@@ -16,6 +16,7 @@ exports.opciones = exports.pausa = exports.menuinquirer = void 0;
 const inquirer_1 = __importDefault(require("inquirer"));
 const Colors = require("colors.ts");
 Colors.enable();
+const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
 const validadores_1 = require("./validadores");
@@ -87,16 +88,17 @@ exports.opciones = {
                 jsonprint.push([`${x.name.red}`, `${x.email.red}`, `${x.category.red}`, `${x.phone.red}`, `${x.date.red}`,]);
             }
             ;
-            setTimeout(() => { console.clear(); console.log(x.editado); }, 3000);
-            if (index % 2 == 0) {
-                jsonprint.push([`${x.name.green}`, `${x.email.green}`, `${x.category.green}`, `${x.phone.green}`, `${x.date.green}`,]);
-            }
-            else {
-                jsonprint.push([`${x.name.blue}`, `${x.email.blue}`, `${x.category.blue}`, `${x.phone.blue}`, `${x.date.blue}`,]);
+            if (!x.editado) {
+                if (index % 2 == 0) {
+                    jsonprint.push([`${x.name.green}`, `${x.email.green}`, `${x.category.green}`, `${x.phone.green}`, `${x.date.green}`,]);
+                }
+                else {
+                    jsonprint.push([`${x.name.blue}`, `${x.email.blue}`, `${x.category.blue}`, `${x.phone.blue}`, `${x.date.blue}`,]);
+                }
             }
         });
         console.clear();
-        //console.log(table(jsonprint,undefined));
+        console.log((0, table_1.table)(jsonprint, undefined));
     },
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {

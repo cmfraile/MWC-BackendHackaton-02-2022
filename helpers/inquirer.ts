@@ -70,16 +70,20 @@ export const opciones = {
         let index:number = 0;
         db.forEach((x:any) => {
             index++;
+
             if(x.editado){jsonprint.push([`${x.name.red}`,`${x.email.red}`,`${x.category.red}`,`${x.phone.red}`,`${x.date.red}`,])};
-            if(index % 2 == 0){
-                jsonprint.push([`${x.name.green}`,`${x.email.green}`,`${x.category.green}`,`${x.phone.green}`,`${x.date.green}`,]);
-            }else{
-                jsonprint.push([`${x.name.blue}`,`${x.email.blue}`,`${x.category.blue}`,`${x.phone.blue}`,`${x.date.blue}`,]);
+            
+            if(!x.editado){
+                if(index % 2 == 0){
+                    jsonprint.push([`${x.name.green}`,`${x.email.green}`,`${x.category.green}`,`${x.phone.green}`,`${x.date.green}`,]);
+                }else{
+                    jsonprint.push([`${x.name.blue}`,`${x.email.blue}`,`${x.category.blue}`,`${x.phone.blue}`,`${x.date.blue}`,]);
+                }
             }
             
         });
         console.clear();
-        //console.log(table(jsonprint,undefined));
+        console.log(table(jsonprint,undefined));
     },
     agregardev: async(db:any[],directorio:string):Promise<void> => {
         try{

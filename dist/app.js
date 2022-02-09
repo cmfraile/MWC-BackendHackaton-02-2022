@@ -50,6 +50,11 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield bdeployer(__dirname);
     yield menuloop(__dirname);
     console.clear();
+    /*
+    const objtest = {propiedad:true,propiedad2:undefined};
+    console.log(objtest);
+    console.log(!objtest.propiedad2) // undefined -> true;
+    */
 });
 main();
 //ACABA EL CÓDIGO:
