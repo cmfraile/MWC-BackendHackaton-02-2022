@@ -16,7 +16,6 @@ exports.opciones = exports.pausa = exports.menuinquirer = void 0;
 const inquirer_1 = __importDefault(require("inquirer"));
 const Colors = require("colors.ts");
 Colors.enable();
-const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
 const validadores_1 = require("./validadores");
@@ -80,15 +79,15 @@ exports.opciones = {
     },
     developers: (db) => {
         //USUARIO : name,email,category,phone,date.
-        console.clear();
         let jsonprint = [['nombre', 'correo', 'categoria', 'telefono', 'dia de asistencia']];
         let index = 0;
         db.forEach((x) => {
             index++;
             if (x.editado) {
                 jsonprint.push([`${x.name.red}`, `${x.email.red}`, `${x.category.red}`, `${x.phone.red}`, `${x.date.red}`,]);
-                return;
             }
+            ;
+            setTimeout(() => { console.clear(); console.log(x.editado); }, 3000);
             if (index % 2 == 0) {
                 jsonprint.push([`${x.name.green}`, `${x.email.green}`, `${x.category.green}`, `${x.phone.green}`, `${x.date.green}`,]);
             }
@@ -96,7 +95,8 @@ exports.opciones = {
                 jsonprint.push([`${x.name.blue}`, `${x.email.blue}`, `${x.category.blue}`, `${x.phone.blue}`, `${x.date.blue}`,]);
             }
         });
-        console.log((0, table_1.table)(jsonprint, undefined));
+        console.clear();
+        //console.log(table(jsonprint,undefined));
     },
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
@@ -119,8 +119,16 @@ exports.opciones = {
     }),
     reiniciarBD: (directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const data = yield (0, bdeployer_1.bdconsulta)();
-            (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(data));
+            const q = [{ type: 'confirm', message: '¿Esta seguro de esta accion?', name: 'confirmar', default: false }];
+            const { confirmar } = yield inquirer_1.default.prompt(q);
+            if (confirmar) {
+                const data = yield (0, bdeployer_1.bdconsulta)();
+                (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(data));
+            }
+            else {
+                return;
+            }
+            ;
         }
         catch (err) {
             console.log(err);

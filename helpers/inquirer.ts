@@ -66,19 +66,20 @@ export const opciones = {
     },
     developers: (db:any[]) => {
         //USUARIO : name,email,category,phone,date.
-        console.clear();
         let jsonprint:any[][] = [['nombre','correo','categoria','telefono','dia de asistencia']];
         let index:number = 0;
         db.forEach((x:any) => {
             index++;
-            if(x.editado){jsonprint.push([`${x.name.red}`,`${x.email.red}`,`${x.category.red}`,`${x.phone.red}`,`${x.date.red}`,]);return;}
+            if(x.editado){jsonprint.push([`${x.name.red}`,`${x.email.red}`,`${x.category.red}`,`${x.phone.red}`,`${x.date.red}`,])};
             if(index % 2 == 0){
                 jsonprint.push([`${x.name.green}`,`${x.email.green}`,`${x.category.green}`,`${x.phone.green}`,`${x.date.green}`,]);
             }else{
                 jsonprint.push([`${x.name.blue}`,`${x.email.blue}`,`${x.category.blue}`,`${x.phone.blue}`,`${x.date.blue}`,]);
             }
+            
         });
-        console.log(table(jsonprint,undefined));
+        console.clear();
+        //console.log(table(jsonprint,undefined));
     },
     agregardev: async(db:any[],directorio:string):Promise<void> => {
         try{
@@ -92,8 +93,12 @@ export const opciones = {
     },
     reiniciarBD: async(directorio:string):Promise<void> => {
         try{
-            const data:any[] = await bdconsulta();
-            writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(data));
+            const q = [{type:'confirm',message:'¿Esta seguro de esta accion?',name:'confirmar',default:false}];
+            const { confirmar } = await inquirer.prompt(q);
+            if(confirmar){
+                const data:any[] = await bdconsulta();
+                writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(data));
+            }else{return};
         }catch(err){console.log(err)}
     },
     borrarVisitante: async():Promise<void> => {

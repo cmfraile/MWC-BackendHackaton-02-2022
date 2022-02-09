@@ -33,9 +33,15 @@ const menuloop = async(directorio:string) => {
 const main = async() => {
 
     console.clear();
+    
+    /*
     await bdeployer(__dirname);
     await menuloop(__dirname);
     console.clear();
+    */
+
+    const objtest = {propiedad:true,propiedad2:undefined};
+    console.log(objtest);
 
 }
 
