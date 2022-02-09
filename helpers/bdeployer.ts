@@ -6,7 +6,7 @@ import axios from 'axios';
 //home/nakowhitedeity/EyT/Desarrollo web/Hackatones/MWCfebrero22/desafiobackend/dist.
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
-export const bdurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.jsona';
+export const bdurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
 export const bdconsulta = async(rutaroot:string):Promise<any[]> => {
     return new Promise((rs,rj) => {
