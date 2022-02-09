@@ -29,14 +29,14 @@ const preguntas = [
             { value: '1', name: `Información del evento` },
             { value: '2', name: `Listar visitantes` },
             { value: '3', name: `Añadir visitantes` },
-            { value: '4', name: `borrar visitante` },
+            //{value: '4' , name:`borrar visitante`},
             { value: '5', name: `Reiniciar base de datos` },
             { value: '0', name: `Cerrar CLI` }
         ]
     }
 ];
 const inputusuarioq = [
-    { type: 'input', name: 'nombre' },
+    { type: 'input', validate: validadores_1.namecheck, name: 'nombre' },
     { type: 'input', validate: validadores_1.emailcheck, name: 'correo' },
     { type: 'list', name: 'categoria', choices: [
             { value: 'back', nombre: 'back' },
@@ -44,19 +44,20 @@ const inputusuarioq = [
             { value: 'mobile', nombre: 'mobile' },
             { value: 'data science', nombre: 'datascience' },
         ], alias: 'categoria' },
-    { type: 'input', validate: validadores_1.phonecheck, name: 'telefono' },
-    { type: 'list', name: 'fecha', choices: [
+    { type: 'input', validate: validadores_1.phonecheck, name: 'telefono', alias: 'teléfono' },
+    { type: 'list', name: 'asistencia', choices: [
             { value: '26 Feb,2021', nombre: '26 Feb,2021' },
             { value: '27 Feb,2021', nombre: '27 Feb,2021' },
             { value: '28 Feb,2021', nombre: '28 Feb,2021' },
             { value: '1 Mar,2021', nombre: '1 Mar,2021' },
             { value: '2 Mar,2021', nombre: '2 Mar,2021' },
             { value: '3 Mar,2021', nombre: '3 Mar,2021' },
-        ] },
+        ], alias: 'dias de asistencia' },
 ];
 const menuinquirer = () => __awaiter(void 0, void 0, void 0, function* () {
     console.clear();
-    //console.log("MWCBCN - 02/2022 - Desafio BackEnd\n".yellow);
+    console.log("MWC_BCN - 02/2022 - Desafio BackEnd".yellow);
+    console.log("Escoge una opción:\n".yellow);
     const { opcion } = yield inquirer_1.default.prompt(preguntas);
     return opcion;
 });
@@ -100,9 +101,9 @@ exports.opciones = {
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             console.clear();
-            const { nombre: name, correo: email, categoria: category, telefono: phone, asistencia: date } = yield inquirer_1.default.prompt(inputusuarioq);
-            const respuestas = { name, email, category, phone, date };
-            db.push(Object.assign(Object.assign({}, respuestas), { editado: true }));
+            const respuestas = yield inquirer_1.default.prompt(inputusuarioq);
+            const r2 = { name: respuestas.nombre, email: respuestas.correo, category: respuestas.categoria, phone: respuestas.telefono, date: respuestas.asistencia };
+            db.push(Object.assign(Object.assign({}, r2), { editado: true }));
             db = db.sort((a, b) => { if (a.name < b.name) {
                 return -1;
             }

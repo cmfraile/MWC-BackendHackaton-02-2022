@@ -9,18 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const { menuinquirer, pausa, opciones, jsonurl } = require('./helpers/inquirer');
+const { menuinquirer, pausa, opciones } = require('./helpers/inquirer');
 const { bdeployer } = require('./helpers/bdeployer');
 const fs_1 = require("fs");
 console.clear();
 //EMPIEZA EL CODIGO:
 //VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 const lectura = () => {
-    const raw = (0, fs_1.readFileSync)('./database/devs.json');
+    const raw = (0, fs_1.readFileSync)(`${__dirname}/database/devs.json`);
     const json = JSON.parse(raw);
     return json;
 };
 const menuloop = (directorio) => __awaiter(void 0, void 0, void 0, function* () {
+    console.clear();
     let opt = '';
     do {
         opt = yield menuinquirer();
@@ -34,9 +35,7 @@ const menuloop = (directorio) => __awaiter(void 0, void 0, void 0, function* () 
             case '3':
                 yield opciones.agregardev(lectura(), directorio);
                 break;
-            case '4':
-                yield opciones.borrarVisitante();
-                break;
+            //case '4': await opciones.borrarVisitante() ; break ;
             case '5':
                 yield opciones.reiniciarBD(directorio);
                 break;

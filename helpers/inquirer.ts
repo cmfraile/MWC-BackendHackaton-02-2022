@@ -2,8 +2,8 @@ import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
 import { writeFile , writeFileSync } from 'fs';
-import { bdurl , bdconsulta } from './bdeployer';
-import { emailcheck , phonecheck } from './validadores';
+import { bdconsulta } from './bdeployer';
+import { emailcheck , phonecheck , namecheck } from './validadores';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 
 const preguntas = [
@@ -14,7 +14,7 @@ const preguntas = [
             {value: '1' , name:`Información del evento`},
             {value: '2' , name:`Listar visitantes`},
             {value: '3' , name:`Añadir visitantes`},
-            {value: '4' , name:`borrar visitante`},
+            //{value: '4' , name:`borrar visitante`},
             {value: '5' , name:`Reiniciar base de datos`},
             {value: '0' , name:`Cerrar CLI`}
         ]
@@ -22,16 +22,16 @@ const preguntas = [
 ];
 
 const inputusuarioq = [
-    {type:'input',name:'name',alias:'nombre'},
-    {type:'input',validate:emailcheck,name:'email',alias:'correo'},
-    {type:'list',name:'category',choices:[
+    {type:'input',validate:namecheck,name:'nombre'},
+    {type:'input',validate:emailcheck,name:'correo'},
+    {type:'list',name:'categoria',choices:[
         {value:'back',nombre:'back'},
         {value:'front',nombre:'front'},
         {value:'mobile',nombre:'mobile'},
         {value:'data science',nombre:'datascience'},
     ],alias:'categoria'},
-    {type:'input',validate:phonecheck,name:'phone',alias:'teléfono'},
-    {type:'list',name:'date',choices:[
+    {type:'input',validate:phonecheck,name:'telefono',alias:'teléfono'},
+    {type:'list',name:'asistencia',choices:[
         {value:'26 Feb,2021',nombre:'26 Feb,2021'},
         {value:'27 Feb,2021',nombre:'27 Feb,2021'},
         {value:'28 Feb,2021',nombre:'28 Feb,2021'},
@@ -45,7 +45,8 @@ const inputusuarioq = [
 
 export const menuinquirer = async() => {
     console.clear();
-    //console.log("MWCBCN - 02/2022 - Desafio BackEnd\n".yellow);
+    console.log("MWC_BCN - 02/2022 - Desafio BackEnd".yellow);
+    console.log("Escoge una opción:\n".yellow);
     const { opcion } = await inquirer.prompt(preguntas);
     return opcion ;
 }
@@ -83,7 +84,8 @@ export const opciones = {
         try{
             console.clear();
             const respuestas = await inquirer.prompt(inputusuarioq);
-            db.push({...respuestas,editado:true});
+            const r2 = { name:respuestas.nombre , email:respuestas.correo , category:respuestas.categoria , phone:respuestas.telefono , date:respuestas.asistencia }
+            db.push({...r2,editado:true});
             db = db.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
             writeFile(`${directorio}/database/devs.json`,JSON.stringify(db),(err) =>{if(err) throw err});
         }catch(err){console.log(err)}

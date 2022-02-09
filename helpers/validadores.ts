@@ -12,3 +12,10 @@ export const phonecheck = (input:string) => {
     }else{return true};
 
 }
+
+export const namecheck = (input:string) => {
+    let vaciocheck = false ; input.split('').forEach(x => {if(x !== ' '){vaciocheck = true}});
+    if(!vaciocheck){return 'El nombre no debe de estar vacio'}
+    if(input.length <= 4){return 'El nombre es demasiado corto'}
+    return true;
+}
