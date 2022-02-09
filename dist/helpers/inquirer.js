@@ -124,7 +124,7 @@ exports.opciones = {
             const q = [{ type: 'confirm', message: '¿Esta seguro de esta accion?', name: 'confirmar', default: false }];
             const { confirmar } = yield inquirer_1.default.prompt(q);
             if (confirmar) {
-                const data = yield (0, bdeployer_1.bdconsulta)();
+                const data = yield (0, bdeployer_1.bdconsulta)(directorio);
                 (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(data));
             }
             else {

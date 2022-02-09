@@ -19,8 +19,8 @@ const axios_1 = __importDefault(require("axios"));
 //RUTAROOT
 //home/nakowhitedeity/EyT/Desarrollo web/Hackatones/MWCfebrero22/desafiobackend/dist.
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
-exports.bdurl = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
-const bdconsulta = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.bdurl = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.jsona';
+const bdconsulta = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((rs, rj) => {
         axios_1.default.get(exports.bdurl).then(resp => {
             let arraydev = resp.data;
@@ -31,7 +31,16 @@ const bdconsulta = () => __awaiter(void 0, void 0, void 0, function* () {
                 return 1;
             } ; });
             rs(arraydev);
-        }).catch(err => rj(err));
+        }).catch(() => {
+            let arraydev = require(path_1.default.join(rutaroot, '../database/original.json'));
+            arraydev = arraydev.sort((a, b) => { if (a.name < b.name) {
+                return -1;
+            }
+            else {
+                return 1;
+            } ; });
+            rs(arraydev);
+        });
     });
 });
 exports.bdconsulta = bdconsulta;
@@ -43,7 +52,7 @@ const bdeployer = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () {
         }
         ;
         if (!fs_1.default.existsSync(`${urlref}/devs.json`)) {
-            const data = yield (0, exports.bdconsulta)();
+            const data = yield (0, exports.bdconsulta)(rutaroot);
             fs_1.default.writeFileSync(`${urlref}/devs.json`, JSON.stringify(data));
         }
         return;

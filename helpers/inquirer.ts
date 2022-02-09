@@ -100,7 +100,7 @@ export const opciones = {
             const q = [{type:'confirm',message:'¿Esta seguro de esta accion?',name:'confirmar',default:false}];
             const { confirmar } = await inquirer.prompt(q);
             if(confirmar){
-                const data:any[] = await bdconsulta();
+                const data:any[] = await bdconsulta(directorio);
                 writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(data));
             }else{return};
         }catch(err){console.log(err)}
