@@ -20,7 +20,6 @@ const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
 const validadores_1 = require("./validadores");
-const child_process_1 = require("child_process");
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 const preguntas = [
     {
@@ -101,7 +100,6 @@ exports.opciones = {
         });
         console.clear();
         console.log((0, table_1.table)(jsonprint, undefined));
-        (0, child_process_1.exec)('clear');
     },
     agregardev: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         try {
