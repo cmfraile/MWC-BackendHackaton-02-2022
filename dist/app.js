@@ -21,9 +21,9 @@ const lectura = () => {
     return json;
 };
 const menuloop = (directorio) => __awaiter(void 0, void 0, void 0, function* () {
-    console.clear();
     let opt = '';
     do {
+        console.clear();
         opt = yield menuinquirer();
         switch (opt) {
             case '1':

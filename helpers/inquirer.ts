@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
-import { writeFile , writeFileSync } from 'fs';
+import { readFileSync, writeFile , writeFileSync } from 'fs';
 import { bdconsulta } from './bdeployer';
 import { emailcheck , phonecheck , namecheck } from './validadores';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
@@ -53,7 +53,7 @@ export const menuinquirer = async() => {
 
 export const pausa = async() => {
     const q = [{type:'input',name:'enter',message:'Enter para continuar'}];
-    console.log("\n") ; await inquirer.prompt(q);
+    console.log("\n") ; await inquirer.prompt(q); console.clear();
 }
 
 export const opciones = {

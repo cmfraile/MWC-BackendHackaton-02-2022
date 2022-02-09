@@ -15,9 +15,9 @@ const lectura = ():any[] => {
 }
 
 const menuloop = async(directorio:string) => {
-    console.clear()
     let opt = '';
     do{
+        console.clear();
         opt = await menuinquirer();
         switch(opt){
             case '1': opciones.diasdelevento() ; break ;
