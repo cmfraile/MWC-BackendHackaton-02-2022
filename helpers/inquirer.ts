@@ -14,7 +14,7 @@ const preguntas = [
             {value: '1' , name:`Información del evento`},
             {value: '2' , name:`Listar visitantes`},
             {value: '3' , name:`Añadir visitantes`},
-            //{value: '4' , name:`borrar visitante`},
+            {value: '4' , name:`borrar visitante`},
             {value: '5' , name:`Reiniciar base de datos`},
             {value: '0' , name:`Cerrar CLI`}
         ]
@@ -105,8 +105,22 @@ export const opciones = {
             }else{return};
         }catch(err){console.log(err)}
     },
-    borrarVisitante: async():Promise<void> => {
-        console.log("llegas");
+    borrarVisitante: async(bd:any[]):Promise<void> => {
+        try{
+            console.clear();
+            let delarray:any = {
+                type:'list',
+                name:'eliminar',
+                choices:():any[] => {
+                    let charray:any[] = [];
+                    bd.forEach((x:any) => {
+                        charray.push({value:`${x.name}`,nombre:`${x.name}`})
+                    });
+                    return charray;
+                }
+            }
+            const { nombre } = await inquirer.prompt(delarray);
+        }catch(err){console.log(err)}
     }
 }
 

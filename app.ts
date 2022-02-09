@@ -23,7 +23,7 @@ const menuloop = async(directorio:string) => {
             case '1': opciones.diasdelevento() ; break ;
             case '2': opciones.developers(lectura()) ; break ;
             case '3': await opciones.agregardev(lectura(),directorio) ; break ;
-            //case '4': await opciones.borrarVisitante() ; break ;
+            case '4': await opciones.borrarVisitante(lectura()) ; break ;
             case '5': await opciones.reiniciarBD(directorio) ; break ;
         }
         if(opt !== '5'){await pausa();}
