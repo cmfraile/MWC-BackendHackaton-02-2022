@@ -18,7 +18,6 @@ La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las
 - Para poder ejecutar el proyecto, necesitaras instalar Node(https://nodejs.org/es/download/package-manager/#debian-and-ubuntu-based-linux-distributions-enterprise-linux-fedora-and-snap-packages), el cual ya instala Node y NPM.
 - Luego, abre una terminal situada en la raíz del proyecto y ejecuta `npm install` para cargar las dependencias.
 - Tras ello, ya puedes ejecutar el proyecto con `npm start`, el cual genera el fichero "./dist" con todo el programa compilado desde TS a JS.
-
 ##IMPORTANTE:
 Al ejecutar el programa, es conveniente dar bastante anchura a la terminal para que la tabla con la información de los visitantes no se vea incorrectamente.
 
