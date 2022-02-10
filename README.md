@@ -13,7 +13,14 @@ La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las
 - [Inquirer](https://www.npmjs.com/package/inquirer) - La solución para generar menus de consola mas extendida de Javascript.
 - [Typescript](https://www.npmjs.com/package/typescript) - Superset de Javascript que endurece su tipado. Si solo conoces Javascript, te recomiendo que indages sobre el y lo implantes en tus proyectos.
 
-### Como usar el repositorio:
+### Como usar el repositorio y cargar el programa:
 
 - Para poder ejecutar el proyecto, necesitaras instalar Node(https://nodejs.org/es/download/package-manager/#debian-and-ubuntu-based-linux-distributions-enterprise-linux-fedora-and-snap-packages), el cual ya instala Node y NPM.
-- Despues, en la raíz del proyecto tendrás que ejecutar el comando `npm start`, el cual carga el proyecto y genera el "distribuible" del mismo. Una versión ligera en Javascript tras compilar y comprobar que el programa en Typescript esta correcto.
+- Luego, abre una terminal situada en la raíz del proyecto y ejecuta `npm install` para cargar las dependencias.
+- Tras ello, ya puedes ejecutar el proyecto con `npm start`, el cual genera el fichero "./dist" con todo el programa compilado desde TS a JS.
+
+##IMPORTANTE:
+Al ejecutar el programa, es conveniente dar bastante anchura a la terminal para que la tabla con la información de los visitantes no se vea incorrectamente.
+
+![](https://c.tenor.com/GiO4XNKti44AAAAd/retrowave-synthwave.gif)![]
+
