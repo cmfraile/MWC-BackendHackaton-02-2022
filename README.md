@@ -12,3 +12,8 @@ La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las
 - [Colors](https://www.npmjs.com/package/colors) - Clásica libreria para dar colores a las salidas en consola.
 - [Inquirer](https://www.npmjs.com/package/inquirer) - La solución para generar menus de consola mas extendida de Javascript.
 - [Typescript](https://www.npmjs.com/package/typescript) - Superset de Javascript que endurece su tipado. Si solo conoces Javascript, te recomiendo que indages sobre el y lo implantes en tus proyectos.
+
+### Como usar el repositorio:
+
+- Para poder ejecutar el proyecto, necesitaras instalar Node(https://nodejs.org/es/download/package-manager/#debian-and-ubuntu-based-linux-distributions-enterprise-linux-fedora-and-snap-packages), el cual ya instala Node y NPM.
+- Despues, en la raíz del proyecto tendrás que ejecutar el comando `npm start`, el cual carga el proyecto y genera el "distribuible" del mismo. Una versión ligera en Javascript tras compilar y comprobar que el programa en Typescript esta correcto.
