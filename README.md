@@ -5,7 +5,7 @@
 en este pequeño proyecto realizamos una CLI donde mostramos información del evento, el listado de asistentes y una función para añadir nuevos asistentes. Debido a la facilidad del proyecto y a que el repositorio resultante me iba a servir de referencia para futuras CLI, me he tomado la libertad de añadir funcionalidades no exigidas en el enunciado, generando un CRUD para los asistentes, peticiones HTTP para traer el JSON con los usuarios, así como funciones de creación y borrado de ficheros para usar desde la primera bajada de la base de datos la misma almacenada localmente. Como generar CLIs era una tarea que tenia pendiente y que deseaba aprender, este desafio me ha venido de perlas.
 
 ### Tecnologias empleadas:
-<img src='https://cdn-icons-png.flaticon.com/512/5968/5968322.png' width="100"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968381.png" width="100">
+<img src='https://cdn-icons-png.flaticon.com/512/5968/5968322.png' width="50"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968381.png" width="50">
 
 La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las librerias que he empleado han sido:
 - [Axios](https://www.npmjs.com/package/axios) - Clásica libreria para las peticiones HTTP.
