@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.bdeployer = exports.bdconsulta = exports.bdurl = void 0;
 const fs_1 = __importDefault(require("fs"));
-const uuid_1 = require("uuid");
 const path_1 = __importDefault(require("path"));
 const axios_1 = __importDefault(require("axios"));
 //RUTAROOT
@@ -31,7 +30,6 @@ const bdconsulta = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () 
             else {
                 return 1;
             } ; });
-            arraydev.forEach((x) => { x['id'] = (0, uuid_1.v4)(); });
             rs(arraydev);
         }).catch(() => {
             let arraydev = require(path_1.default.join(rutaroot, '../database/original.json'));
@@ -41,7 +39,6 @@ const bdconsulta = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () 
             else {
                 return 1;
             } ; });
-            arraydev.forEach((x) => { x['id'] = (0, uuid_1.v4)(); });
             rs(arraydev);
         });
     });

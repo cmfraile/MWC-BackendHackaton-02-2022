@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import Colors = require('colors.ts') ; Colors.enable();
 import { table } from 'table';
-import { readFileSync, writeFile , writeFileSync } from 'fs';
+import { writeFile , writeFileSync } from 'fs';
 import { bdconsulta } from './bdeployer';
 import { emailcheck , phonecheck , namecheck } from './validadores';
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
@@ -10,6 +10,7 @@ const preguntas = [
     {
         type:'list',
         name:'opcion',
+        message:'Escoja una opción',
         choices: [
             {value: '1' , name:`Información del evento`},
             {value: '2' , name:`Listar visitantes`},
@@ -28,9 +29,9 @@ const inputusuarioq = [
         {value:'back',nombre:'back'},
         {value:'front',nombre:'front'},
         {value:'mobile',nombre:'mobile'},
-        {value:'data science',nombre:'datascience'},
+        {value:'data science',nombre:'data science'},
     ],alias:'categoria'},
-    {type:'input',validate:phonecheck,name:'telefono',alias:'teléfono'},
+    {type:'input',validate:phonecheck,name:'telefono'},
     {type:'list',name:'asistencia',choices:[
         {value:'26 Feb,2021',nombre:'26 Feb,2021'},
         {value:'27 Feb,2021',nombre:'27 Feb,2021'},
@@ -106,20 +107,40 @@ export const opciones = {
         }catch(err){console.log(err)}
     },
     borrarVisitante: async(bd:any[]):Promise<void> => {
+        const crearregexp = (criterio:string):RegExp|Boolean => {
+            let vaciocheck = false ; criterio.split('').forEach(x => {if(x !== ' '){vaciocheck = true}});
+            if(vaciocheck){return true}else{return new RegExp(`/${criterio}/gi`)};
+        };
         try{
             console.clear();
+            let delinput:any = {
+                type:'input',
+                name:'eliminar1',
+                message:'Escribe su nombre o parte de el',
+            }
+            const { eliminar1 } = await inquirer.prompt(delinput);
             let delarray:any = {
                 type:'list',
-                name:'eliminar',
+                name:'eliminar2',
+                message:'Ahora seleccione a quien eliminar:',
                 choices:():any[] => {
                     let charray:any[] = [];
-                    bd.forEach((x:any) => {
-                        charray.push({value:`${x.name}`,nombre:`${x.name}`})
+                    bd.forEach((x:any,i:number) => {
+                        if(x.name.match(crearregexp(eliminar1)) || crearregexp(eliminar1) == true){
+                            if(i%2 == 0){
+                                charray.push({value:`${x.name}`,name:`${x.name.green}`});
+                            }else{
+                                charray.push({value:`${x.name}`,name:`${x.name.blue}`});
+                            }
+                        }
                     });
+                    charray.push(new inquirer.Separator('--------------------------'.red));
+                    charray.push({value:'CANCELAR BORRADO',name:'CANCELAR BORRADO'.red});
+                    charray.push(new inquirer.Separator('--------------------------'.red));
                     return charray;
                 }
             }
-            const { nombre } = await inquirer.prompt(delarray);
+            const { eliminar2 } = await inquirer.prompt(delarray);
         }catch(err){console.log(err)}
     }
 }

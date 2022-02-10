@@ -25,6 +25,7 @@ const preguntas = [
     {
         type: 'list',
         name: 'opcion',
+        message: 'Escoja una opción',
         choices: [
             { value: '1', name: `Información del evento` },
             { value: '2', name: `Listar visitantes` },
@@ -42,9 +43,9 @@ const inputusuarioq = [
             { value: 'back', nombre: 'back' },
             { value: 'front', nombre: 'front' },
             { value: 'mobile', nombre: 'mobile' },
-            { value: 'data science', nombre: 'datascience' },
+            { value: 'data science', nombre: 'data science' },
         ], alias: 'categoria' },
-    { type: 'input', validate: validadores_1.phonecheck, name: 'telefono', alias: 'teléfono' },
+    { type: 'input', validate: validadores_1.phonecheck, name: 'telefono' },
     { type: 'list', name: 'asistencia', choices: [
             { value: '26 Feb,2021', nombre: '26 Feb,2021' },
             { value: '27 Feb,2021', nombre: '27 Feb,2021' },
@@ -138,24 +139,50 @@ exports.opciones = {
         }
     }),
     borrarVisitante: (bd) => __awaiter(void 0, void 0, void 0, function* () {
+        const crearregexp = (criterio) => {
+            let vaciocheck = false;
+            criterio.split('').forEach(x => { if (x !== ' ') {
+                vaciocheck = true;
+            } });
+            if (vaciocheck) {
+                return true;
+            }
+            else {
+                return new RegExp(`/${criterio}/gi`);
+            }
+            ;
+        };
         try {
             console.clear();
+            let delinput = {
+                type: 'input',
+                name: 'eliminar1',
+                message: 'Escribe su nombre o parte de el',
+            };
+            const { eliminar1 } = yield inquirer_1.default.prompt(delinput);
             let delarray = {
                 type: 'list',
-                name: 'eliminar',
+                name: 'eliminar2',
+                message: 'Ahora seleccione a quien eliminar:',
                 choices: () => {
                     let charray = [];
-                    bd.forEach((x) => {
-                        charray.push({ value: `${x.name}`, nombre: `${x.name}` });
+                    bd.forEach((x, i) => {
+                        if (x.name.match(crearregexp(eliminar1)) || crearregexp(eliminar1) == true) {
+                            if (i % 2 == 0) {
+                                charray.push({ value: `${x.name}`, name: `${x.name.green}` });
+                            }
+                            else {
+                                charray.push({ value: `${x.name}`, name: `${x.name.blue}` });
+                            }
+                        }
                     });
+                    charray.push(new inquirer_1.default.Separator('--------------------------'.red));
+                    charray.push({ value: 'CANCELAR BORRADO', name: 'CANCELAR BORRADO'.red });
+                    charray.push(new inquirer_1.default.Separator('--------------------------'.red));
                     return charray;
                 }
             };
-            const { nombre } = yield inquirer_1.default.prompt(delarray);
-            setTimeout(() => {
-                console.clear();
-                console.log(nombre);
-            }, 5000);
+            const { eliminar2 } = yield inquirer_1.default.prompt(delarray);
         }
         catch (err) {
             console.log(err);

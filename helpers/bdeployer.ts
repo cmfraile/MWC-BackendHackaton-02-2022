@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { v4 } from 'uuid';
 import path from 'path';
 import axios from 'axios';
 
@@ -14,12 +13,10 @@ export const bdconsulta = async(rutaroot:string):Promise<any[]> => {
         axios.get(bdurl).then(resp => {
             let arraydev:any[] = resp.data;
             arraydev = arraydev.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
-            arraydev.forEach((x:any) => { x['id'] = v4() });
             rs(arraydev);
         }).catch(() => {
             let arraydev:any[] = require(path.join(rutaroot,'../database/original.json'));
             arraydev = arraydev.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
-            arraydev.forEach((x:any) => { x['id'] = v4() });
             rs(arraydev);
         });
     })
