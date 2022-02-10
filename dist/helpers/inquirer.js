@@ -114,8 +114,7 @@ exports.opciones = {
             else {
                 return 1;
             } ; });
-            (0, fs_1.writeFile)(`${directorio}/database/devs.json`, JSON.stringify(db), (err) => { if (err)
-                throw err; });
+            (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(db));
         }
         catch (err) {
             console.log(err);
@@ -138,17 +137,18 @@ exports.opciones = {
             console.log(err);
         }
     }),
-    borrarVisitante: (bd) => __awaiter(void 0, void 0, void 0, function* () {
+    borrarVisitante: (db, directorio) => __awaiter(void 0, void 0, void 0, function* () {
         const crearregexp = (criterio) => {
             let vaciocheck = false;
             criterio.split('').forEach(x => { if (x !== ' ') {
                 vaciocheck = true;
             } });
-            if (vaciocheck) {
+            if (!vaciocheck) {
                 return true;
             }
             else {
-                return new RegExp(`/${criterio}/gi`);
+                const regexp = new RegExp(criterio, 'ig');
+                return regexp;
             }
             ;
         };
@@ -157,16 +157,17 @@ exports.opciones = {
             let delinput = {
                 type: 'input',
                 name: 'eliminar1',
-                message: 'Escribe su nombre o parte de el',
+                message: 'Escribe su nombre o parte de el (Dejalo vacio para mostrar toda la lista)',
             };
             const { eliminar1 } = yield inquirer_1.default.prompt(delinput);
+            console.clear();
             let delarray = {
                 type: 'list',
                 name: 'eliminar2',
                 message: 'Ahora seleccione a quien eliminar:',
                 choices: () => {
                     let charray = [];
-                    bd.forEach((x, i) => {
+                    db.forEach((x, i) => {
                         if (x.name.match(crearregexp(eliminar1)) || crearregexp(eliminar1) == true) {
                             if (i % 2 == 0) {
                                 charray.push({ value: `${x.name}`, name: `${x.name.green}` });
@@ -176,13 +177,24 @@ exports.opciones = {
                             }
                         }
                     });
-                    charray.push(new inquirer_1.default.Separator('--------------------------'.red));
-                    charray.push({ value: 'CANCELAR BORRADO', name: 'CANCELAR BORRADO'.red });
-                    charray.push(new inquirer_1.default.Separator('--------------------------'.red));
+                    charray.unshift(new inquirer_1.default.Separator('--------------------------'.red));
+                    charray.unshift({ value: 'CANCELAR BORRADO', name: 'CANCELAR BORRADO'.red });
+                    charray.unshift(new inquirer_1.default.Separator('--------------------------'.red));
                     return charray;
                 }
             };
             const { eliminar2 } = yield inquirer_1.default.prompt(delarray);
+            setTimeout(() => {
+                console.clear();
+                const filtrado = db.filter(x => x.name == eliminar2);
+                console.log(db.indexOf(filtrado[0]['id']));
+                //console.log(db);
+                console.log(eliminar2);
+            });
+            /*
+            while(db.indexOf({name:eliminar2})){db.splice(db.indexOf({name:eliminar2}),1)};
+            writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(db));
+            */
         }
         catch (err) {
             console.log(err);

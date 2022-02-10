@@ -93,7 +93,7 @@ export const opciones = {
             const r2 = { name:respuestas.nombre , email:respuestas.correo , category:respuestas.categoria , phone:respuestas.telefono , date:respuestas.asistencia }
             db.push({...r2,editado:true});
             db = db.sort((a:any,b:any) => {if(a.name < b.name){return -1}else{return 1};});
-            writeFile(`${directorio}/database/devs.json`,JSON.stringify(db),(err) =>{if(err) throw err});
+            writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(db));
         }catch(err){console.log(err)}
     },
     reiniciarBD: async(directorio:string):Promise<void> => {
@@ -106,26 +106,31 @@ export const opciones = {
             }else{return};
         }catch(err){console.log(err)}
     },
-    borrarVisitante: async(bd:any[]):Promise<void> => {
+    borrarVisitante: async(db:any[],directorio:string):Promise<void> => {
         const crearregexp = (criterio:string):RegExp|Boolean => {
-            let vaciocheck = false ; criterio.split('').forEach(x => {if(x !== ' '){vaciocheck = true}});
-            if(vaciocheck){return true}else{return new RegExp(`/${criterio}/gi`)};
+            let vaciocheck = false;
+            criterio.split('').forEach(x => {if(x !== ' '){vaciocheck = true}});
+            if(!vaciocheck){return true}else{
+                const regexp = new RegExp(criterio,'ig');
+                return regexp;
+            };
         };
         try{
             console.clear();
             let delinput:any = {
                 type:'input',
                 name:'eliminar1',
-                message:'Escribe su nombre o parte de el',
+                message:'Escribe su nombre o parte de el (Dejalo vacio para mostrar toda la lista)',
             }
             const { eliminar1 } = await inquirer.prompt(delinput);
+            console.clear();
             let delarray:any = {
                 type:'list',
                 name:'eliminar2',
                 message:'Ahora seleccione a quien eliminar:',
                 choices:():any[] => {
                     let charray:any[] = [];
-                    bd.forEach((x:any,i:number) => {
+                    db.forEach((x:any,i:number) => {
                         if(x.name.match(crearregexp(eliminar1)) || crearregexp(eliminar1) == true){
                             if(i%2 == 0){
                                 charray.push({value:`${x.name}`,name:`${x.name.green}`});
@@ -134,13 +139,23 @@ export const opciones = {
                             }
                         }
                     });
-                    charray.push(new inquirer.Separator('--------------------------'.red));
-                    charray.push({value:'CANCELAR BORRADO',name:'CANCELAR BORRADO'.red});
-                    charray.push(new inquirer.Separator('--------------------------'.red));
+                    charray.unshift(new inquirer.Separator('--------------------------'.red));
+                    charray.unshift({value:'CANCELAR BORRADO',name:'CANCELAR BORRADO'.red});
+                    charray.unshift(new inquirer.Separator('--------------------------'.red));
                     return charray;
                 }
             }
             const { eliminar2 } = await inquirer.prompt(delarray);
+            setTimeout(() => {console.clear() ;
+                const filtrado = db.filter(x => x.name == eliminar2);
+                console.log(db.indexOf(filtrado));
+                console.log(db);
+                console.log(eliminar2);
+            });
+            /*
+            while(db.indexOf({name:eliminar2})){db.splice(db.indexOf({name:eliminar2}),1)};
+            writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(db));
+            */
         }catch(err){console.log(err)}
     }
 }

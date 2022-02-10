@@ -16,6 +16,7 @@ exports.bdeployer = exports.bdconsulta = exports.bdurl = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const axios_1 = __importDefault(require("axios"));
+const uuid_1 = require("uuid");
 //RUTAROOT
 //home/nakowhitedeity/EyT/Desarrollo web/Hackatones/MWCfebrero22/desafiobackend/dist.
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
@@ -30,6 +31,7 @@ const bdconsulta = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () 
             else {
                 return 1;
             } ; });
+            arraydev.forEach((x) => { x['id'] = (0, uuid_1.v4)(); });
             rs(arraydev);
         }).catch(() => {
             let arraydev = require(path_1.default.join(rutaroot, '../database/original.json'));
@@ -39,6 +41,7 @@ const bdconsulta = (rutaroot) => __awaiter(void 0, void 0, void 0, function* () 
             else {
                 return 1;
             } ; });
+            arraydev.forEach((x) => { x['id'] = (0, uuid_1.v4)(); });
             rs(arraydev);
         });
     });

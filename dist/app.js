@@ -36,7 +36,7 @@ const menuloop = (directorio) => __awaiter(void 0, void 0, void 0, function* () 
                 yield opciones.agregardev(lectura(), directorio);
                 break;
             case '4':
-                yield opciones.borrarVisitante(lectura());
+                yield opciones.borrarVisitante(lectura(), directorio);
                 break;
             case '5':
                 yield opciones.reiniciarBD(directorio);
