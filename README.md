@@ -22,5 +22,5 @@ La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las
 ##IMPORTANTE:
 Al ejecutar el programa, es conveniente dar bastante anchura a la terminal para que la tabla con la información de los visitantes no se vea incorrectamente.
 
-![](https://c.tenor.com/GiO4XNKti44AAAAd/retrowave-synthwave.gif)![]
+![](https://c.tenor.com/GiO4XNKti44AAAAd/retrowave-synthwave.gif)
 
