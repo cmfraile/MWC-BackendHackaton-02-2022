@@ -46,7 +46,7 @@ const inputusuarioq = [
 
 export const menuinquirer = async() => {
     console.clear();
-    console.log("MWC/BCN : Hackaton-Desafio Backend:\n".yellow);
+    console.log("MWC/BCN <Hackaton-Desafio Backend> :\n".yellow);
     const { opcion } = await inquirer.prompt(preguntas);
     return opcion ;
 }
