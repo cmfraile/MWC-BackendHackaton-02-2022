@@ -20,13 +20,12 @@ const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
 const validadores_1 = require("./validadores");
-const boxen_1 = __importDefault(require("boxen"));
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 const preguntas = [
     {
         type: 'list',
         name: 'opcion',
-        message: 'Escoja una opción',
+        message: 'Escoje una opción:',
         choices: [
             { value: '1', name: `Información del evento` },
             { value: '2', name: `Listar visitantes` },
@@ -58,8 +57,7 @@ const inputusuarioq = [
 ];
 const menuinquirer = () => __awaiter(void 0, void 0, void 0, function* () {
     console.clear();
-    console.log("MWC_BCN - 02/2022 - Desafio BackEnd".yellow);
-    console.log("Escoge una opción:\n".yellow);
+    console.log("MWC-BCN - Hackaton : Desafio Backend:\n".yellow);
     const { opcion } = yield inquirer_1.default.prompt(preguntas);
     return opcion;
 });
@@ -74,13 +72,7 @@ exports.pausa = pausa;
 exports.opciones = {
     diasdelevento: () => {
         console.clear();
-        /*
-        console.log("Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow);
-        console.log("Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow);
-        console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
-        console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
-        */
-        console.log((0, boxen_1.default)('hola mundo', undefined));
+        console.log(" Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow, "\n", "Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow, "\n\n", "Desde el 26-02 hasta el 03-03", "\n\n", `Mas información: ${'https://www.mwcbarcelona.com/about'.green}`);
     },
     developers: (db) => {
         //USUARIO : name,email,category,phone,date.
@@ -186,9 +178,14 @@ exports.opciones = {
                 }
             };
             const { eliminar2 } = yield inquirer_1.default.prompt(delarray);
-            db.forEach((x, i) => { if (x.name == eliminar2) {
-                db.splice(i, 1);
-            } });
+            db.forEach((x, i) => {
+                if (eliminar2 == 'CANCELAR BORRADO') {
+                    return;
+                }
+                if (x.name == eliminar2) {
+                    db.splice(i, 1);
+                }
+            });
             (0, fs_1.writeFileSync)(`${directorio}/database/devs.json`, JSON.stringify(db));
         }
         catch (err) {

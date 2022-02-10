@@ -33,7 +33,7 @@ const namecheck = (input) => {
     if (!vaciocheck) {
         return 'El nombre no debe de estar vacio';
     }
-    if (input.length <= 4) {
+    if (input.length <= 3) {
         return 'El nombre es demasiado corto';
     }
     return true;

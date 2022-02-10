@@ -6,8 +6,6 @@ console.clear();
 
 //EMPIEZA EL CODIGO:
 
-//VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
-
 const lectura = ():any[] => {
     const raw:any = readFileSync(`${__dirname}/database/devs.json`);
     const json = JSON.parse(raw);

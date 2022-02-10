@@ -14,7 +14,6 @@ const { bdeployer } = require('./helpers/bdeployer');
 const fs_1 = require("fs");
 console.clear();
 //EMPIEZA EL CODIGO:
-//VAMOS A HACER POR CREAR UNA SOLUCION QUE GENERE EL FICHERO UNA VEZ TRAS DESCARGARLO Y LUEGO CONSUMA ESA SIEMPRE.
 const lectura = () => {
     const raw = (0, fs_1.readFileSync)(`${__dirname}/database/devs.json`);
     const json = JSON.parse(raw);

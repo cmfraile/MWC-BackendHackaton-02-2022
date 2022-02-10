@@ -10,7 +10,7 @@ const preguntas = [
     {
         type:'list',
         name:'opcion',
-        message:'Escoja una opción',
+        message:'Escoje una opción:',
         choices: [
             {value: '1' , name:`Información del evento`},
             {value: '2' , name:`Listar visitantes`},
@@ -46,8 +46,7 @@ const inputusuarioq = [
 
 export const menuinquirer = async() => {
     console.clear();
-    console.log("MWC_BCN - 02/2022 - Desafio BackEnd".yellow);
-    console.log("Escoge una opción:\n".yellow);
+    console.log("MWC/BCN : Hackaton-Desafio Backend:\n".yellow);
     const { opcion } = await inquirer.prompt(preguntas);
     return opcion ;
 }
@@ -60,13 +59,7 @@ export const pausa = async() => {
 export const opciones = {
     diasdelevento: () => {
         console.clear();
-        /*
-        console.log("Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow);
-        console.log("Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow);
-        console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
-        console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
-        */
-        console.log(boxen('hola mundo',undefined))
+        console.log(" Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow,"\n","Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow,"\n\n","Desde el 26-02 hasta el 03-03","\n\n",`Mas información: ${'https://www.mwcbarcelona.com/about'.green}`)
     },
     developers: (db:any[]) => {
         //USUARIO : name,email,category,phone,date.
@@ -149,7 +142,11 @@ export const opciones = {
                 }
             }
             const { eliminar2 } = await inquirer.prompt(delarray);
-            db.forEach((x:any,i:number) => {if(x.name == eliminar2){db.splice(i,1)}});
+            db.forEach((x:any,i:number) => {
+                if(eliminar2 == 'CANCELAR BORRADO'){return}
+                if(x.name == eliminar2){db.splice(i,1)
+                }
+            });
             writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(db));
         }catch(err){console.log(err)}
     }
