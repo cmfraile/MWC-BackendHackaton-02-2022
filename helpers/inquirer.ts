@@ -146,16 +146,8 @@ export const opciones = {
                 }
             }
             const { eliminar2 } = await inquirer.prompt(delarray);
-            setTimeout(() => {console.clear() ;
-                const filtrado = db.filter(x => x.name == eliminar2);
-                console.log(db.indexOf(filtrado));
-                console.log(db);
-                console.log(eliminar2);
-            });
-            /*
-            while(db.indexOf({name:eliminar2})){db.splice(db.indexOf({name:eliminar2}),1)};
+            db.forEach((x:any,i:number) => {if(x.name == eliminar2){db.splice(i,1)}});
             writeFileSync(`${directorio}/database/devs.json`,JSON.stringify(db));
-            */
         }catch(err){console.log(err)}
     }
 }
