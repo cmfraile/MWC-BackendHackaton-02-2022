@@ -7,8 +7,8 @@ en este pequeño proyecto realizamos una CLI donde mostramos información del ev
 ### Tecnologias empleadas:
 
 La tecnologia empleada ha sido Node.JS , el conocido backend en Javascript . Las librerias que he empleado han sido:
-[Axios](https://www.npmjs.com/package/axios) - Clásica libreria para las peticiones HTTP.
-[Table](https://www.npmjs.com/package/table) - Libreria para transformar un conjunto de datos en una tabla. Mas exactamente en un string que se imprimirá como una tabla en cosnola.
-[Colors](https://www.npmjs.com/package/colors) - Clásica libreria para dar colores a las salidas en consola.
-[Inquirer](https://www.npmjs.com/package/inquirer) - La solución para generar menus de consola mas extendida de Javascript.
-[Typescript](https://www.npmjs.com/package/typescript) - El "superset" por antonomasia de Javascript . A pesar de que no lo uso de forma totalmente ortodoxa, tanto para acceder a los métodos sugeridos por el IDE como no tener bugs sin retroalimentar a tiempo me es mas que suficiente.
+###[Axios](https://www.npmjs.com/package/axios) - Clásica libreria para las peticiones HTTP.
+###[Table](https://www.npmjs.com/package/table) - Libreria para transformar un conjunto de datos en una tabla. Mas exactamente en un string que se imprimirá como una tabla en cosnola.
+###[Colors](https://www.npmjs.com/package/colors) - Clásica libreria para dar colores a las salidas en consola.
+###[Inquirer](https://www.npmjs.com/package/inquirer) - La solución para generar menus de consola mas extendida de Javascript.
+###[Typescript](https://www.npmjs.com/package/typescript) - El "superset" por antonomasia de Javascript . A pesar de que no lo uso de forma totalmente ortodoxa, tanto para acceder a los métodos sugeridos por el IDE como no tener bugs sin retroalimentar a tiempo me es mas que suficiente.
