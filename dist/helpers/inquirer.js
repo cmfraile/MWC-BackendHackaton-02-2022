@@ -20,6 +20,7 @@ const table_1 = require("table");
 const fs_1 = require("fs");
 const bdeployer_1 = require("./bdeployer");
 const validadores_1 = require("./validadores");
+const boxen_1 = __importDefault(require("boxen"));
 //const jsonurl:string = 'https://challenges-asset-files.s3.us-east-2.amazonaws.com/data_sets/mwc22.json';
 const preguntas = [
     {
@@ -73,12 +74,13 @@ exports.pausa = pausa;
 exports.opciones = {
     diasdelevento: () => {
         console.clear();
+        /*
         console.log("Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow);
         console.log("Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow);
-        console.log("\n");
-        console.log("Desde el 26-02 hasta el 03-03");
-        console.log("\n");
+        console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
+        */
+        console.log((0, boxen_1.default)('hola mundo', undefined));
     },
     developers: (db) => {
         //USUARIO : name,email,category,phone,date.

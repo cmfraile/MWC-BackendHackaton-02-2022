@@ -60,10 +60,13 @@ export const pausa = async() => {
 export const opciones = {
     diasdelevento: () => {
         console.clear();
+        /*
         console.log("Te esperamos en el recinto Fira Gran Via de Barcelona:".yellow);
         console.log("Av. Joan Carles I, 64, 08908 L'Hospitalet de Llobregat, Barcelona".yellow);
         console.log("\n");console.log("Desde el 26-02 hasta el 03-03"); console.log("\n");
         console.log(`Mas información ${'https://www.mwcbarcelona.com/about'.green}`);
+        */
+        console.log(boxen('hola mundo',undefined))
     },
     developers: (db:any[]) => {
         //USUARIO : name,email,category,phone,date.
